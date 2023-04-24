@@ -295,9 +295,7 @@
   transition: 0.5s;
 }
 
-.product-item:hover img {
-  transform: scale(1.1);
-}
+
 
 .product-item small a:hover {
   color: var(--primary) !important;

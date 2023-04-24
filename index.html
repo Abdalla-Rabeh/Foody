@@ -209,26 +209,8 @@
         </div>
         <div class="tab-content">
           <div class="row g-4">
-            <div
-              class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp"
-              data-wow-delay="0.1s"
-            >
               <div class="product-item">
-                <div class="position-relative bg-light overflow-hidden">
-                  <img class="img-fluid w-100" src="img/product-1.jpg" alt="img" id="imgApi" />
-                  
-                  <div
-                    class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"
-                  >
-                    جديد
-                  </div>
-                </div>
-                <div class="text-center p-4">
-                  <a class="d-block h5 mb-2" href="" id="text"></a>
-                  
-                </div>
-                <div class="d-flex border-top part-food part-food">
-                  <p id="title"></p>
+                <div class="position-relative bg-light overflow-hidden row" id="recipes">
                 </div>
               </div>
             </div>
@@ -241,7 +223,7 @@
                 >الانتقال الي صفحه الوصفات</a
               >
             </div>
-          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -281,20 +263,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script>
-     
-      let img = document.querySelector("#imgApi")
-      let text = document.querySelector("#text")
-      let title = document.querySelector("#title")
-      window.addEventListener("load", () => {
-        fetch("https://dog.ceo/api/breeds/image/random").then(res => res.json())
-        .then(result => {
-          console.log(result.status);
-          img.src = result.message
-        })
-        text.textContent = "وجبه كلاب جاهزه"
-        title.textContent = " ملح - كمون - شطه - سمن - ملح - كمون - شطه - سمن - ملح - كمون - شطه - سمن - ملح - كمون - شطه - سمن"
-      })
-    </script>
+    <script src="js/view.js"></script>
+    
   </body>
 </html>
