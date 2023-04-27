@@ -110,8 +110,10 @@ else if ($requestMethod == 'DELETE'){
         $errors = [];
         if(is_numeric($id)){
             if(delete_product($pdoObject , 'DELETE FROM products WHERE id =?' , [$id])){
+
                 http_response_code(200);
                 echo 'Product Deleted Successfully';
+
                 die;
             } else $errors['id'] = 'product not found';
         } else {
