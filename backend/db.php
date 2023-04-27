@@ -13,4 +13,23 @@ try{
     echo 'failed to connect to database , please make sure that database file is uploaded and credentials are correct';
     die;
 }
+if(!function_exists('show_all')){
+    function show_all(PDO $pdoObject , string $query = 'SELECT * FROM products' , array $bindings = []): bool|array
+    {
+        // start to get all products
+        $statement = $pdoObject->prepare($query);
+        $statement->execute($bindings);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
+
+if(!function_exists('show_one')){
+    function show_one(PDO $pdoObject , string $query , array $bindings = []){
+        $statement = $pdoObject->prepare($query);
+        $statement->execute($bindings);
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+}
 return $pdo;
