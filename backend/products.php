@@ -84,6 +84,7 @@ if ($requestMethod == 'GET') {
                     $imageName.=".$ext";
                     // Start Storing The Product
 
+                    http_response_code(201);
                     $storedProduct = store(
                         $pdoObject ,
                         'INSERT INTO products (name , how_to_make , image) VALUES (?,?,?)',
@@ -98,9 +99,29 @@ if ($requestMethod == 'GET') {
 
         }
 
+        http_response_code(422);
         echo json_encode($errors);
 
     }
-} else {
+}
+else if ($requestMethod == 'DELETE'){
+    if($operation == 'delete'){
+        $id = $_GET['id'] ?? null;
+        $errors = [];
+        if(is_numeric($id)){
+            if(delete_product($pdoObject , 'DELETE FROM products WHERE id =?' , [$id])){
+                http_response_code(200);
+                echo 'Product Deleted Successfully';
+                die;
+            } else $errors['id'] = 'product not found';
+        } else {
+            $errors['id'] = 'id is not valid';
+        }
+
+        http_response_code(422);
+        echo json_encode($errors);
+    }
+}
+else {
     echo 'Request method is not allowed';
 }

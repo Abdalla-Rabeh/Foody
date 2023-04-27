@@ -45,4 +45,13 @@ if(!function_exists('store')){
         return show_one($pdoObject , 'SELECT * from products ORDER BY id DESC LIMIT 1');
     }
 }
+
+if(!function_exists('delete_product')){
+    function delete_product(PDO $pdoObject , string $query , array $bindings = []): bool
+    {
+        $statement = $pdoObject->prepare($query);
+
+        return $statement->execute($bindings);
+    }
+}
 return $pdo;
