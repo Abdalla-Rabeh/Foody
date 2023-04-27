@@ -1,8 +1,12 @@
+
+<?php
+$config = require_once __DIR__ . '/./backend/config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>اكلتي</title>
+    <title>Foody</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="Foody" name="keywords" />
     <meta content="Foody" name="description" />
@@ -57,7 +61,7 @@
         style="transform: translateY(20px); padding: 20px"
       >
         <div class="container">
-          <a href="index.html" class="navbar-brand">
+          <a href="index.php" class="navbar-brand">
             <h1 class="fw-bold text-primary m-0">
               ا<span class="text-secondary">كل</span>تي
             </h1>
@@ -72,10 +76,10 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav me-auto">
-              <a href="index.html" class="nav-item nav-link active"
-                >الصفحه الرئيسه</a
+              <a href="index.php" class="nav-item nav-link">الصفحه الرئيسه</a>
+              <a href="product.php" class="nav-item nav-link active"
+                >الوصفات</a
               >
-              <a href="product.html" class="nav-item nav-link">الوصفات</a>
               <button
                 class="btn btn-primary"
                 style="
@@ -94,105 +98,27 @@
     </div>
     <!-- Navbar End -->
 
-    <!-- Carousel Start -->
-    <div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
-      <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="w-100" src="img/carousel-1.jpg" alt="Image" />
-            <div class="carousel-caption">
-              <div class="container">
-                <div class="row justify-content-start">
-                  <div class="col-lg-7">
-                    <h1 class="display-2 mb-5 animated slideInDown">
-                      الغذاء العضوي مفيد للصحة
-                    </h1>
-                    <a
-                      href="product.html"
-                      class="btn btn-primary rounded-pill py-sm-3 px-sm-5"
-                      >الوصفات</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="w-100" src="img/carousel-2.jpg" alt="Image" />
-            <div class="carousel-caption">
-              <div class="container">
-                <div class="row justify-content-start">
-                  <div class="col-lg-7">
-                    <h1 class="display-2 mb-5 animated slideInDown">
-                      الغذاء الطبيعي دائما صحي
-                    </h1>
-                    <a
-                      href="product.html"
-                      class="btn btn-primary rounded-pill py-sm-3 px-sm-5"
-                      >الوصفات</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#header-carousel"
-          data-bs-slide="prev"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#header-carousel"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </div>
-    <!-- Carousel End -->
-
-    <!-- About Start -->
-    <div class="container-xxl py-5">
+    <!-- Page Header Start -->
+    <div
+      class="container-fluid page-header mb-5 wow fadeIn"
+      data-wow-delay="0.1s"
+    >
       <div class="container">
-        <div class="row g-5 align-items-center">
-          <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-            <div class="about-img position-relative overflow-hidden p-5 pe-0">
-              <img class="img-fluid w-100" src="img/about.jpg" />
-            </div>
-          </div>
-          <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-            <h1 class="display-5 mb-4">أفضل الوصفات الاكليه المتميزه</h1>
-            <p class="mb-4">
-              نقدم لكم اجود وافضل الوصفات الاكل في الوطن العربي
-            </p>
-            <p>
-              <i class="fa fa-check text-primary me-3"></i>نتميز بمجموعة من أشهر
-              الطهاة
-            </p>
-            <p>
-              <i class="fa fa-check text-primary me-3"></i>أكثر من 10 سنوات من
-              الخبرة في مجال الطهي
-            </p>
-            <p>
-              <i class="fa fa-check text-primary me-3"></i>لقد كبرنا معكم ومع
-              جهودكم الكبيرة طوال الرحلة
-            </p>
-            <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href=""
-              >قراء المزيد</a
-            >
-          </div>
-        </div>
+        <h1 class="display-3 mb-3 animated slideInDown">الوصفات</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+              <a class="text-body" href="#">الصفحه الرئيسه</a>
+            </li>
+            <li class="breadcrumb-item text-dark active" aria-current="page">
+              الوصفات
+            </li>
+          </ol>
+        </nav>
       </div>
     </div>
-    <!-- About End -->
+    <!-- Page Header End -->
+
     <!-- Product Start -->
     <div class="container-xxl py-5">
       <div class="container">
@@ -214,16 +140,6 @@
                 </div>
               </div>
             </div>
-            
-            
-            <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-              <a
-                class="btn btn-primary rounded-pill py-3 px-5"
-                href="product.html"
-                >الانتقال الي صفحه الوصفات</a
-              >
-            </div>
-        </div>
         </div>
       </div>
     </div>
@@ -263,7 +179,42 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script src="js/view.js"></script>
-    
+<!--    <script src="js/view.js"></script>-->
+
   </body>
 </html>
+
+<script>
+    $.ajax({
+        url: "<?= $config['backend_url']?>/products.php?operation=show_all",
+        method: 'get',
+        headers: {
+            accept: "application/json"
+        },
+        dataType: 'json',
+        success: function (response) {
+            console.log('nice')
+            const recipes = document.querySelector("#recipes");
+
+            // fetch all product from backend
+            response.forEach((product) => {
+                const div = document.createElement("div");
+                // ✅ Add classes to element
+                div.classList.add("col-lg-4", "m-auto");
+                div.innerHTML = `
+                <img class="img-fluid w-100" src="<?= $config['backend_url']?>/uploads/${product.image}.png" alt="img-${product.image}" />
+                <div style="background-color: #3CB815;
+                border-color: #3CB815;
+                color: #fff;">
+                <p id="title" class="part-food text-center border-top">${product.name}</p>
+                <p id="title" class="part-food text-center border-top">${product.how_to_make}</p>
+            </div>
+            `;
+                recipes.appendChild(div);
+            });
+        },
+        error: function (error) {
+            console.log(error.responseText)
+        }
+    })
+</script>

@@ -7,6 +7,8 @@ window.addEventListener("load", () => {
     );
     posts.then((result) => {
         const recipes = document.querySelector("#recipes");
+
+        // fetch all product from backend
         result.forEach((post) => {
             const postElement = document.createElement("div");
             // ✅ Add classes to element
