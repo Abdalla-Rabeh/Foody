@@ -31,8 +31,8 @@ if ($requestMethod == 'GET') {
     if ($operation == 'store') {
         $errors = [];
 
-        $name = htmlspecialchars($_POST['name'] ?? null);
-        $howToMake = htmlspecialchars($_POST['how_to_make'] ?? null);
+        $name = htmlspecialchars($_POST['name'] ?? "");
+        $howToMake = htmlspecialchars($_POST['how_to_make'] ?? "");
         $image = $_FILES['image'] ?? null;
 
         if (!$name) {
@@ -69,7 +69,7 @@ if ($requestMethod == 'GET') {
 
             if(!$errors && isset($ext)){
                 // Start Uploading the image
-                $imageName = sha1_file($image['tmp_name']);
+                $imageName = rand(1,10000).'_' . rand(1,10000);
                 if (!move_uploaded_file(
                     $image['tmp_name'],
                     sprintf('./uploads/%s.%s',
