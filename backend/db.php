@@ -14,7 +14,7 @@ try{
     die;
 }
 if(!function_exists('show_all')){
-    function show_all(PDO $pdoObject , string $query = 'SELECT * FROM products' , array $bindings = []): bool|array
+    function show_all(PDO $pdoObject , string $query = 'SELECT * FROM products ORDER BY ID DESC' , array $bindings = []): bool|array
     {
         // start to get all products
         $statement = $pdoObject->prepare($query);
@@ -30,6 +30,28 @@ if(!function_exists('show_one')){
         $statement->execute($bindings);
 
         return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+}
+
+if(!function_exists('store')){
+    function store(PDO $pdoObject , string $query , array $bindings){
+
+        // Storing The Product
+        $statement = $pdoObject->prepare($query);
+        $statement->execute($bindings);
+
+        // Returning the stored product
+
+        return show_one($pdoObject , 'SELECT * from products ORDER BY id DESC LIMIT 1');
+    }
+}
+
+if(!function_exists('delete_product')){
+    function delete_product(PDO $pdoObject , string $query , array $bindings = []): bool
+    {
+        $statement = $pdoObject->prepare($query);
+
+        return $statement->execute($bindings);
     }
 }
 return $pdo;

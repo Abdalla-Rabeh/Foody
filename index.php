@@ -286,7 +286,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
                 // ✅ Add classes to element
                 div.classList.add("col-lg-4", "m-auto");
                 div.innerHTML = `
-                <img class="img-fluid w-100" src="<?= $config['backend_url']?>/uploads/${product.image}.png" alt="img-${product.image}" />
+                <img class="img-fluid w-100" src="<?= $config['backend_url']?>/uploads/${product.image}" alt="img-${product.image}" />
                 <div style="background-color: #3CB815;
                 border-color: #3CB815;
                 color: #fff;">
