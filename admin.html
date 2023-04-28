@@ -112,27 +112,13 @@
     const formEl = document.querySelector("form");
     const tbodyEl = document.querySelector("tbody");
     const tableEl = document.querySelector("table");
-    const image_input = document.querySelector("#image_input");
-    var uploaded_image = "";
-
-    image_input.addEventListener("change", function () {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        uploaded_image = reader.result;
-        document.querySelector("#display_image").style.backgroundImage = `url(${uploaded_image})`;
-      });
-      reader.readAsDataURL(this.files[0]);
-    })
-
     function onAddWebsite(e) {
       e.preventDefault();
       const img = document.querySelector('input[type="file"]');
       const formData = new FormData();
-
       const file = img.files[0];
       formData.append('image', file);
       console.log(file)
-     
       const website = document.getElementById("website").value;
       const url = document.getElementById("url").value;
       tbodyEl.innerHTML += `
