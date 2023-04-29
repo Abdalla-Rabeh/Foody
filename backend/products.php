@@ -132,5 +132,3 @@ else if ($requestMethod == 'DELETE'){
 else {
     echo 'Request method is not allowed';
 }
-
-echo 'nothing to do';
