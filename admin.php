@@ -59,7 +59,11 @@ $config = require_once __DIR__ . '/./backend/config.php';
 
     table td,
     table th {
-        border: solid 1px black;
+        border: 1px solid #3cb815;
+    padding: 10px;
+    font-size: 20px;
+    font-family: system-ui;
+    font-weight: bold;
     }
 
     label,
@@ -68,24 +72,43 @@ $config = require_once __DIR__ . '/./backend/config.php';
         margin: 10px 0;
         font-size: 20px;
     }
-
+    label {
+        cursor: pointer;
+    }
     button {
         display: block;
+        margin: 10px auto;
+        width: 120px;
+        border:none;
+        background-color : #3cb815;
+        color:#fff;
+        border-radius: 10px; 
     }
-
-    #display_image {
-        width: 150px;
-        height: 150px;
-        border: 1px solid red;
+    input , label , button{
+        padding: 10px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: system-ui;
+    }
+    #storeProduct{
+    background: #f1f1f1;
+    padding: 40px;}
+    table{
+        width: 100%;
+    }
+    .deleteBtn{
+        background-color: #f65005;
     }
 </style>
+
 
 <body style="direction: rtl;">
 <form class="container" id="storeProduct">
     <div class="row">
         <div class="col">
-            <label for="img">صورة الوصفه</label>
-            <input type="file" id="image_input" name="image" accept="image/png, image/jpg">
+            <label for="image_input" style="border: 2px dotted #3cb815;">صورة الوصفه</label>
+            <input type="file" id="image_input" class="d-none" name="image" accept="image/png, image/jpg">
         </div>
         <div class="col">
             <input type="text" name="name" id="url" placeholder="اسم الوصفه"/>
@@ -98,19 +121,22 @@ $config = require_once __DIR__ . '/./backend/config.php';
         </div>
     </div>
 </form>
-<table>
-    <thead>
-    <tr>
-        <th>الصوره
-            <div id="display_image"></div>
-        </th>
-        <th>اسم الوصفة</th>
-        <th>المكونات</th>
-        <th>اعدادت</th>
-    </tr>
-    </thead>
-    <tbody id="displayed-products"></tbody>
-</table>
+    <div class="container">
+        <table>
+            <thead>
+            <tr>
+                <th>الصوره
+                    <div id="display_image"></div>
+                </th>
+                <th>اسم الوصفة</th>
+                <th>المكونات</th>
+                <th>اعدادت</th>
+            </tr>
+            </thead>
+            <tbody id="displayed-products"></tbody>
+        </table>
+
+    </div>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
