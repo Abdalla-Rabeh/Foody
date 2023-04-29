@@ -164,43 +164,46 @@ $config = require_once __DIR__ . '/./backend/config.php';
 
     // add event listener to all buttons
 
-    function deleteProduct(event){
-        console.log('This is Delete Btn',event)
+    function deleteProduct(event) {
+        console.log('This is Delete Btn', event)
         event.preventDefault();
     }
 
     formEl.addEventListener("submit", onAddWebsite);
     tableEl.addEventListener("click", onDeleteRow);
 
-    axios.get("<?= $config['backend_url']?>/products.php?operation=show_all").then(function(response){
+    axios.get("<?= $config['backend_url']?>/products.php?operation=show_all").then(function (response) {
         let displayedProducts = document.getElementById('displayed-products');
         let newTr = document.createElement('tr');
 
         displayedProducts.appendChild(newTr)
         // fetch all product from backend
-        response.data.forEach((product) => {
-            let displayedProducts = document.getElementById('displayed-products');
-            let newTr = document.createElement('tr');
-            newTr.innerHTML = `
+        if (Array.isArray(response.data)) {
+
+            response.data.forEach((product) => {
+                let displayedProducts = document.getElementById('displayed-products');
+                let newTr = document.createElement('tr');
+                newTr.innerHTML = `
 
             <td><img src="<?=$config['backend_url']?>/uploads/${product.image}"></td>
               <td>${product.name}</td>
               <td>${product.how_to_make}</td>
               <td><button class="deleteBtn" data-id="${product.id}"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
       `;
-            displayedProducts.appendChild(newTr);
+                displayedProducts.appendChild(newTr);
 
-        });
+            });
 
+        }
 
-        document.querySelectorAll('.deleteBtn').forEach(function(button){
+        document.querySelectorAll('.deleteBtn').forEach(function (button) {
             console.log(button)
-            button.addEventListener('click' , function(e){
-                if(confirm('are u sure ? ')){
+            button.addEventListener('click', function (e) {
+                if (confirm('are u sure ? ')) {
                     let id = e.currentTarget.getAttribute('data-id');
 
-                    axios.delete(`<?=$config['backend_url']?>/products.php?operation=delete&id=${id}`).then(function(){
-                       console.log('element deleted');
+                    axios.delete(`<?=$config['backend_url']?>/products.php?operation=delete&id=${id}`).then(function () {
+                        console.log('element deleted');
                     })
                 }
             })

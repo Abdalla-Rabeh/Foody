@@ -109,6 +109,11 @@ else if ($requestMethod == 'DELETE'){
         $id = $_GET['id'] ?? null;
         $errors = [];
         if(is_numeric($id)){
+            $image = show_one($pdoObject , 'select image from products where id = ?' , [$id]);
+            if($image){
+                $image=  $image['image'];
+                unlink(__DIR__."/./uploads/$image");
+            }
             if(delete_product($pdoObject , 'DELETE FROM products WHERE id =?' , [$id])){
 
                 http_response_code(200);
@@ -127,3 +132,5 @@ else if ($requestMethod == 'DELETE'){
 else {
     echo 'Request method is not allowed';
 }
+
+echo 'nothing to do';
