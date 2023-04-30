@@ -60,10 +60,10 @@ $config = require_once __DIR__ . '/./backend/config.php';
     table td,
     table th {
         border: 1px solid #3cb815;
-    padding: 10px;
-    font-size: 20px;
-    font-family: system-ui;
-    font-weight: bold;
+        padding: 10px;
+        font-size: 20px;
+        font-family: system-ui;
+        font-weight: bold;
     }
 
     label,
@@ -72,32 +72,39 @@ $config = require_once __DIR__ . '/./backend/config.php';
         margin: 10px 0;
         font-size: 20px;
     }
+
     label {
         cursor: pointer;
     }
+
     button {
         display: block;
         margin: 10px auto;
         width: 120px;
-        border:none;
-        background-color : #3cb815;
-        color:#fff;
-        border-radius: 10px; 
+        border: none;
+        background-color: #3cb815;
+        color: #fff;
+        border-radius: 10px;
     }
-    input , label , button{
+
+    input, label, button {
         padding: 10px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    font-family: system-ui;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        font-family: system-ui;
     }
-    #storeProduct{
-    background: #f1f1f1;
-    padding: 40px;}
-    table{
+
+    #storeProduct {
+        background: #f1f1f1;
+        padding: 40px;
+    }
+
+    table {
         width: 100%;
     }
-    .deleteBtn{
+
+    .deleteBtn {
         background-color: #f65005;
     }
 </style>
@@ -121,22 +128,22 @@ $config = require_once __DIR__ . '/./backend/config.php';
         </div>
     </div>
 </form>
-    <div class="container">
-        <table>
-            <thead>
-            <tr>
-                <th>الصوره
-                    <div id="display_image"></div>
-                </th>
-                <th>اسم الوصفة</th>
-                <th>المكونات</th>
-                <th>اعدادت</th>
-            </tr>
-            </thead>
-            <tbody id="displayed-products"></tbody>
-        </table>
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <th>الصوره
+                <div id="display_image"></div>
+            </th>
+            <th>اسم الوصفة</th>
+            <th>المكونات</th>
+            <th>اعدادت</th>
+        </tr>
+        </thead>
+        <tbody id="displayed-products"></tbody>
+    </table>
 
-    </div>
+</div>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -161,12 +168,13 @@ $config = require_once __DIR__ . '/./backend/config.php';
             .then(function (res) {
                 let displayedProducts = document.getElementById('displayed-products');
                 let newTr = document.createElement('tr');
+                newTr.setAttribute('tr-id', res.data.id);
                 newTr.innerHTML = `
 
             <td><img src="<?=$config['backend_url']?>/uploads/${res.data.image}"></td>
               <td>${res.data.name}</td>
               <td>${res.data.how_to_make}</td>
-              <td><button class="deleteBtn" data-id="${res.data.id}"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+              <td><button class="deleteBtn" data-id="${res.data.id}" onclick="deleteProduct(event)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
       `;
                 displayedProducts.appendChild(newTr)
 
@@ -176,27 +184,24 @@ $config = require_once __DIR__ . '/./backend/config.php';
             })
     }
 
-
-    function onDeleteRow(e) {
-        // console.log('This is Delete', e.currentTarget);
-        // const btn = e.target;
-        // console.log(btn.getAttribute('data-id'))
-        // if (!e.target.classList.contains("deleteBtn")) {
-        //     return;
-        // }
-
-        // btn.closest("tr").remove();
-    }
-
     // add event listener to all buttons
 
     function deleteProduct(event) {
-        console.log('This is Delete Btn', event)
         event.preventDefault();
+        if (confirm('are u sure ?')) {
+            let button = event.currentTarget,
+                id = button.getAttribute('data-id'),
+                clickedTr = button.parentElement.parentElement;
+
+            axios.delete(`<?=$config['backend_url']?>/products.php?operation=delete&id=${id}`).then(function () {
+                console.log('element deleted');
+                clickedTr.remove();
+            })
+        }
     }
 
     formEl.addEventListener("submit", onAddWebsite);
-    tableEl.addEventListener("click", onDeleteRow);
+
 
     axios.get("<?= $config['backend_url']?>/products.php?operation=show_all").then(function (response) {
         let displayedProducts = document.getElementById('displayed-products');
@@ -209,31 +214,20 @@ $config = require_once __DIR__ . '/./backend/config.php';
             response.data.forEach((product) => {
                 let displayedProducts = document.getElementById('displayed-products');
                 let newTr = document.createElement('tr');
+                newTr.setAttribute('tr-id', response.data.id);
+
                 newTr.innerHTML = `
 
             <td><img src="<?=$config['backend_url']?>/uploads/${product.image}"></td>
               <td>${product.name}</td>
               <td>${product.how_to_make}</td>
-              <td><button class="deleteBtn" data-id="${product.id}"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+              <td><button class="deleteBtn" data-id="${product.id}" onclick="deleteProduct(event)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
       `;
                 displayedProducts.appendChild(newTr);
 
             });
 
         }
-
-        document.querySelectorAll('.deleteBtn').forEach(function (button) {
-            console.log(button)
-            button.addEventListener('click', function (e) {
-                if (confirm('are u sure ? ')) {
-                    let id = e.currentTarget.getAttribute('data-id');
-
-                    axios.delete(`<?=$config['backend_url']?>/products.php?operation=delete&id=${id}`).then(function () {
-                        console.log('element deleted');
-                    })
-                }
-            })
-        })
     })
 
 </script>
