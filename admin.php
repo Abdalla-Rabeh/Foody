@@ -155,11 +155,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
 
     function onAddWebsite(e) {
         e.preventDefault();
-        const img = document.querySelector('input[type="file"]');
 
-        const file = img.files[0];
-        const website = document.getElementById("website").value;
-        const url = document.getElementById("url").value;
         const formData = new FormData(formEl);
 
         axios.post("<?= $config['backend_url']?>/products.php?operation=store",
