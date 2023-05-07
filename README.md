@@ -16,6 +16,6 @@ return [
     'host' => 'localhost',
     'username' => 'root',
     'password' => '',
-    'db_name' => 'project_1'
+    'db_name' => 'foody'
 ];
 ```

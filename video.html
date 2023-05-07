@@ -1,7 +1,3 @@
-
-<?php
-$config = require_once __DIR__ . '/./backend/config.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -77,10 +73,10 @@ $config = require_once __DIR__ . '/./backend/config.php';
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav me-auto">
               <a href="index.php" class="nav-item nav-link">الصفحه الرئيسه</a>
-              <a href="product.php" class="nav-item nav-link active"
+              <a href="product.php" class="nav-item nav-link"
                 >الوصفات</a
               >
-              <a href="video.html" class="nav-item nav-link"
+              <a href="video.html" class="nav-item nav-link active"
                 >الشروحات</a
               >
               <button
@@ -107,14 +103,14 @@ $config = require_once __DIR__ . '/./backend/config.php';
       data-wow-delay="0.1s"
     >
       <div class="container">
-        <h1 class="display-3 mb-3 animated slideInDown">الوصفات</h1>
+        <h1 class="display-3 mb-3 animated slideInDown">الشروحات</h1>
         <nav aria-label="breadcrumb animated slideInDown">
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item">
               <a class="text-body" href="#">الصفحه الرئيسه</a>
             </li>
             <li class="breadcrumb-item text-dark active" aria-current="page">
-              الوصفات
+              الشروحات
             </li>
           </ol>
         </nav>
@@ -132,7 +128,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
               data-wow-delay="0.1s"
               style="max-width: 500px"
             >
-              <h1 class="display-5 mb-3">الوصفات</h1>
+              <h1 class="display-5 mb-3">الشروحات</h1>
             </div>
           </div>
         </div>
@@ -140,6 +136,11 @@ $config = require_once __DIR__ . '/./backend/config.php';
           <div class="row g-4">
               <div class="product-item">
                 <div class="position-relative bg-light overflow-hidden row" id="recipes">
+                  <div class="col">
+                  
+                  </div>
+                  
+             
                 </div>
               </div>
             </div>
@@ -179,44 +180,8 @@ $config = require_once __DIR__ . '/./backend/config.php';
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- Template Javascript -->
     <script src="js/main.js"></script>
-<!--    <script src="js/view.js"></script>-->
 
   </body>
 </html>
 
-<script>
-    $.ajax({
-        url: "<?= $config['backend_url']?>/products.php?operation=show_all",
-        method: 'get',
-        headers: {
-            accept: "application/json"
-        },
-        dataType: 'json',
-        success: function (response) {
-            const recipes = document.querySelector("#recipes");
-
-            // fetch all product from backend
-            response.forEach((product) => {
-                const div = document.createElement("div");
-                // ✅ Add classes to element
-                div.classList.add("col-lg-4", "m-auto");
-                div.innerHTML = `
-                <img class="img-fluid w-100" src="<?= $config['backend_url']?>/uploads/${product.image}" alt="img-${product.image}" />
-                <div style="background-color: #3CB815;
-                border-color: #3CB815;
-                color: #fff;">
-                <p id="title" class="part-food text-center border-top">${product.name}</p>
-                <p id="title" class="part-food text-center border-top">${product.how_to_make}</p>
-            </div>
-            `;
-                recipes.appendChild(div);
-            });
-        },
-        error: function (error) {
-            console.log(error.responseText)
-        }
-    })
-</script>
