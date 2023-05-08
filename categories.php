@@ -135,7 +135,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav me-auto">
               <a href="admin.php" class="nav-item nav-link">الوصفات</a>
-              <a href="cat.php" class="nav-item nav-link active"
+              <a href="categories.php" class="nav-item nav-link active"
                 >الاقسام</a
               >
               
@@ -151,7 +151,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
     <div class="row">
         
         <div class="col">
-            <input type="text" name="how_to_make" id="website" placeholder="اسم القسم"/>
+            <input type="text" name="name" id="name" placeholder="اسم القسم"/>
         </div>
         <div class="col">
             <button>اضافه</button>
@@ -179,24 +179,22 @@ $config = require_once __DIR__ . '/./backend/config.php';
     const tbodyEl = document.querySelector("tbody");
     const tableEl = document.querySelector("table");
 
-    function onAddWebsite(e) {
+    function addCategory(e) {
         e.preventDefault();
 
         const formData = new FormData(formEl);
 
-        axios.post("<?= $config['backend_url']?>/products.php?operation=store",
+        axios.post("<?= $config['backend_url']?>/categories.php?operation=store",
             formData,
             {Accept: 'multipart/form-data'})
             .then(function (res) {
+                console.log(res);
                 let displayedProducts = document.getElementById('displayed-products');
                 let newTr = document.createElement('tr');
                 newTr.setAttribute('tr-id', res.data.id);
                 newTr.innerHTML = `
-
-            <td><img src="<?=$config['backend_url']?>/uploads/${res.data.image}"></td>
               <td>${res.data.name}</td>
-              <td>${res.data.how_to_make}</td>
-              <td><button class="deleteBtn" data-id="${res.data.id}" onclick="deleteProduct(event)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+              <td><button class="deleteBtn" data-id="${res.data.id}" onclick="deleteCategory(event)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
       `;
                 displayedProducts.appendChild(newTr)
 
@@ -208,24 +206,24 @@ $config = require_once __DIR__ . '/./backend/config.php';
 
     // add event listener to all buttons
 
-    function deleteProduct(event) {
+    function deleteCategory(event) {
         event.preventDefault();
         if (confirm('are u sure ?')) {
             let button = event.currentTarget,
                 id = button.getAttribute('data-id'),
                 clickedTr = button.parentElement.parentElement;
 
-            axios.delete(`<?=$config['backend_url']?>/products.php?operation=delete&id=${id}`).then(function () {
-                console.log('element deleted');
+            axios.delete(`<?=$config['backend_url']?>/categories.php?operation=delete&id=${id}`).then(function () {
                 clickedTr.remove();
             })
         }
     }
 
-    formEl.addEventListener("submit", onAddWebsite);
+    formEl.addEventListener("submit", addCategory);
 
 
-    axios.get("<?= $config['backend_url']?>/products.php?operation=show_all").then(function (response) {
+    axios.get("<?= $config['backend_url']?>/categories.php?operation=show_all").then(function (response) {
+        console.log(response);
         let displayedProducts = document.getElementById('displayed-products');
         let newTr = document.createElement('tr');
 
@@ -233,14 +231,14 @@ $config = require_once __DIR__ . '/./backend/config.php';
         // fetch all product from backend
         if (Array.isArray(response.data)) {
 
-            response.data.forEach((product) => {
+            response.data.forEach((category) => {
                 let displayedProducts = document.getElementById('displayed-products');
                 let newTr = document.createElement('tr');
                 newTr.setAttribute('tr-id', response.data.id);
 
                 newTr.innerHTML = `
-              <td>${product.how_to_make}</td>
-              <td><button class="deleteBtn" data-id="${product.id}" onclick="deleteProduct(event)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+              <td>${category.name}</td>
+              <td><button class="deleteBtn" data-id="${category.id}" onclick="deleteCategory(event)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
       `;
                 displayedProducts.appendChild(newTr);
 

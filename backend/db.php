@@ -34,7 +34,7 @@ if(!function_exists('show_one')){
 }
 
 if(!function_exists('store')){
-    function store(PDO $pdoObject , string $query , array $bindings){
+    function store(PDO $pdoObject , string $query , array $bindings , string $showOneQuery = 'SELECT * from products ORDER BY id DESC LIMIT 1'){
 
         // Storing The Product
         $statement = $pdoObject->prepare($query);
@@ -42,7 +42,7 @@ if(!function_exists('store')){
 
         // Returning the stored product
 
-        return show_one($pdoObject , 'SELECT * from products ORDER BY id DESC LIMIT 1');
+        return show_one($pdoObject , $showOneQuery);
     }
 }
 

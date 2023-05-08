@@ -143,7 +143,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav me-auto">
               <a href="admin.php" class="nav-item nav-link active">الوصفات</a>
-              <a href="cat.php" class="nav-item nav-link"
+              <a href="categories.php" class="nav-item nav-link"
                 >الاقسام</a
               >
               
