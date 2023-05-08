@@ -199,7 +199,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
 </div>
 <!-- About End -->
 <!-- Product Start -->
-<div class="container-xxl py-5">
+<!-- <div class="container-xxl py-5">
     <div class="container">
         <div class="row g-0 gx-5 align-items-end">
             <div class="col-lg-12">
@@ -216,8 +216,8 @@ $config = require_once __DIR__ . '/./backend/config.php';
             <div class="row g-4">
                 <div class="product-item">
                     <div class="position-relative bg-light overflow-hidden row" id="recipes">
-                        <!--                    Products Goes Here !-->
-                    </div>
+                                           Products Goes Here !-->
+                    <!-- </div>
                 </div>
             </div>
 
@@ -231,9 +231,9 @@ $config = require_once __DIR__ . '/./backend/config.php';
             </div>
         </div>
     </div>
-</div>
-<div>
-</div>
+</div> --> 
+<!-- <div>
+</div> -->
 <!-- Product End -->
 
 <!-- Footer Start -->

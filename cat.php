@@ -67,7 +67,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
     }
 
     label,
-    input,select {
+    input {
         display: block;
         margin: 10px 0;
         font-size: 20px;
@@ -87,22 +87,14 @@ $config = require_once __DIR__ . '/./backend/config.php';
         border-radius: 10px;
     }
 
-    input, label, button , select {
+    input, label, button {
         padding: 10px;
         text-align: center;
         font-size: 24px;
         font-weight: bold;
         font-family: system-ui;
     }
-    select{
-    border: 1px solid !important;
-    margin: 10px auto !important;
-    height: 60px !important;
-    width: 200px !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-    font-family: system-ui !important;
-    }
+
     #storeProduct {
         background: #f1f1f1;
         padding: 40px;
@@ -119,8 +111,8 @@ $config = require_once __DIR__ . '/./backend/config.php';
 
 
 <body style="direction: rtl;">
- <!-- Navbar Start -->
- <div class="container-fluid  wow fadeIn" data-wow-delay="0.1s" style="background-color: #e9ecef;">
+    <!-- Navbar Start -->
+    <div class="container-fluid  wow fadeIn" data-wow-delay="0.1s" style="background-color: #e9ecef;">
         <nav
             class="navbar navbar-expand-lg navbar-light wow fadeIn"
             data-wow-delay="0.1s"
@@ -142,8 +134,8 @@ $config = require_once __DIR__ . '/./backend/config.php';
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav me-auto">
-              <a href="admin.php" class="nav-item nav-link active">الوصفات</a>
-              <a href="cat.php" class="nav-item nav-link"
+              <a href="admin.php" class="nav-item nav-link">الوصفات</a>
+              <a href="cat.php" class="nav-item nav-link active"
                 >الاقسام</a
               >
               
@@ -154,25 +146,12 @@ $config = require_once __DIR__ . '/./backend/config.php';
         </nav>
     </div>
     <!-- Navbar End -->
-<form class="container" id="storeProduct">
+
+    <form class="container" id="storeProduct">
     <div class="row">
+        
         <div class="col">
-            <label for="image_input" style="border: 2px dotted #3cb815;">صورة الوصفه</label>
-            <input type="file" id="image_input" class="d-none" name="image" accept="image/png, image/jpg">
-        </div>
-        <div class="col">
-            <input type="text" name="name" id="url" placeholder="اسم الوصفه"/>
-        </div>
-        <div class="col">
-            <input type="text" name="how_to_make" id="website" placeholder="مكونات الوصفه"/>
-        </div>
-        <div class="col">
-        <select class="form-select" aria-label="Default select example">
-            <option selected>حدد القسم</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
+            <input type="text" name="how_to_make" id="website" placeholder="اسم القسم"/>
         </div>
         <div class="col">
             <button>اضافه</button>
@@ -183,11 +162,6 @@ $config = require_once __DIR__ . '/./backend/config.php';
     <table>
         <thead>
         <tr>
-            <th>الصوره
-                <div id="display_image"></div>
-            </th>
-            <th>اسم الوصفة</th>
-            <th>تفاصيل</th>
             <th>اسم القسم</th>
             <th>اعدادت</th>
         </tr>
@@ -265,10 +239,6 @@ $config = require_once __DIR__ . '/./backend/config.php';
                 newTr.setAttribute('tr-id', response.data.id);
 
                 newTr.innerHTML = `
-
-            <td><img src="<?=$config['backend_url']?>/uploads/${product.image}"></td>
-              <td>${product.name}</td>
-              <td>${product.how_to_make}</td>
               <td>${product.how_to_make}</td>
               <td><button class="deleteBtn" data-id="${product.id}" onclick="deleteProduct(event)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
       `;
