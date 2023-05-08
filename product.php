@@ -81,7 +81,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
                 >الوصفات</a
               >
               <a href="video.html" class="nav-item nav-link"
-                >الشروحات</a
+                >الفيدوهات</a
               >
               <button
                 class="btn btn-primary"
