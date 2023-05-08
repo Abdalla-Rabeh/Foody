@@ -9,5 +9,5 @@ return [
     'host' => 'localhost',
     'username' => 'root',
     'password' => '',
-    'db_name' => 'foody'
+    'db_name' => 'project_1'
 ];

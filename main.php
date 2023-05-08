@@ -8,11 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="http://localhost/foody/backend/products.php?operation=store" method="POST" enctype="multipart/form-data">
-        <input type="text" name="name" value="google">
-        <textarea name="how_to_make">Google</textarea>
-        <input type="file" name="image">
-        <input type="submit" value="store" />
-    </form>
+
 </body>
 </html>
