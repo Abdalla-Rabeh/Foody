@@ -167,11 +167,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
             <input type="text" name="how_to_make" id="website" placeholder="مكونات الوصفه"/>
         </div>
         <div class="col">
-        <select class="form-select" aria-label="Default select example">
-            <option selected>حدد القسم</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <select class="form-select" aria-label="Default select example" name="category" id="categories">
         </select>
         </div>
         <div class="col">
@@ -214,15 +210,19 @@ $config = require_once __DIR__ . '/./backend/config.php';
             formData,
             {Accept: 'multipart/form-data'})
             .then(function (res) {
+                console.log(res)
                 let displayedProducts = document.getElementById('displayed-products');
                 let newTr = document.createElement('tr');
-                newTr.setAttribute('tr-id', res.data.id);
+                let data = res.data;
+
+                newTr.setAttribute('tr-id', data.id);
                 newTr.innerHTML = `
 
-            <td><img src="<?=$config['backend_url']?>/uploads/${res.data.image}"></td>
-              <td>${res.data.name}</td>
-              <td>${res.data.how_to_make}</td>
-              <td><button class="deleteBtn" data-id="${res.data.id}" onclick="deleteProduct(event)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+            <td><img src="<?=$config['backend_url']?>/uploads/${data.image}"></td>
+              <td>${data.name}</td>
+              <td>${data.how_to_make}</td>
+              <td>${data.category_name}</td>
+              <td><button class="deleteBtn" data-id="${data.id}" onclick="deleteProduct(event)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
       `;
                 displayedProducts.appendChild(newTr)
 
@@ -269,7 +269,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
             <td><img src="<?=$config['backend_url']?>/uploads/${product.image}"></td>
               <td>${product.name}</td>
               <td>${product.how_to_make}</td>
-              <td>${product.how_to_make}</td>
+              <td>${product.category_name}</td>
               <td><button class="deleteBtn" data-id="${product.id}" onclick="deleteProduct(event)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
       `;
                 displayedProducts.appendChild(newTr);
@@ -279,6 +279,18 @@ $config = require_once __DIR__ . '/./backend/config.php';
         }
     })
 
+
+    // fetching categories
+    axios.get("<?= $config['backend_url']?>/categories.php?operation=all_select").then(function(response){
+        let categories = response.data;
+        let categoriesContainer = document.querySelector('#categories');
+        let allCategories = '';
+        categories.forEach(function(category){
+            allCategories+= `<option value="${category.id}">${category.name}</option>`
+        })
+
+        categoriesContainer.innerHTML = allCategories;
+    })
 </script>
 </body>
 

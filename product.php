@@ -208,8 +208,9 @@ $config = require_once __DIR__ . '/./backend/config.php';
                 <div style="background-color: #3CB815;
                 border-color: #3CB815;
                 color: #fff;">
+                <a href="product_details.php?id=${product.id}"
                 <p id="title" class="part-food text-center border-top">${product.name}</p>
-                <p id="title" class="part-food text-center border-top">${product.how_to_make}</p>
+                </a>
             </div>
             `;
                 recipes.appendChild(div);

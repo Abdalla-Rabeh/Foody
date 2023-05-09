@@ -1,5 +1,7 @@
 <?php
 $config = require_once __DIR__ . '/./backend/config.php';
+$id = $_GET['id'] ?? 0;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -126,33 +128,42 @@ $config = require_once __DIR__ . '/./backend/config.php';
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <div class="img">
-                    <img src="img\product-1.jpg" alt="img" style="max-width: 80%; height: auto; padding: 20px;">
+                <div class="img" id="productImage">
                 </div>
             </div>
             <div class="col-lg-6 m-auto">
-            <div class="box">
-                <h2>  
-                    اسم الوصفه  : 
-                    <span>
-                        
-                        برجر طازه  
-                        
-                    </span>
-                </h2>
-                <h3> اسم القسم : <span> لحوم</span></h3>
-                <h4> <span style="color:#000;"> مكونات الوصفه</span>   </h4>
-                <p style="font-size:20px; line-height:2; letter-spacing: 1.5px; font-family: system-ui;">
-                    دقيق - ملح - كمون فلفل - حاره - بتجان
-                </p>
+            <div class="box" id="productDetails">
+
             </div>
             </div>
         </div>
     </div>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+<script>
+    axios.get("<?=$config['backend_url']?>/products.php?operation=show_one&id=<?=$id?>").then(function(response){
+        let productDetails = response.data;
+        let productDetailsContainer = document.querySelector('#productDetails');
+        productDetailsContainer.innerHTML = `
+        <h2>
+                    اسم الوصفه  :
+                    <span>
+                        ${productDetails.name}
+                    </span>
+                </h2>
+                <h3> اسم القسم : <span> ${productDetails.category_name}</span></h3>
+                <h4> <span style="color:#000;"> مكونات الوصفه</span>   </h4>
+                <p style="font-size:20px; line-height:2; letter-spacing: 1.5px; font-family: system-ui;">
+                   ${productDetails.how_to_make}
+                </p>
+        `;
 
-
+        let productImage = document.querySelector('#productImage');
+        productImage.innerHTML = `
+        <img src="<?=$config['backend_url']?>/uploads/${productDetails.image}" alt="img" style="max-width: 80%; height: auto; padding: 20px;">
+        `
+    })
+</script>
 </body>
 
 </html>

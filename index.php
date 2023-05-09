@@ -198,43 +198,6 @@ $config = require_once __DIR__ . '/./backend/config.php';
     </div>
 </div>
 <!-- About End -->
-<!-- Product Start -->
-<!-- <div class="container-xxl py-5">
-    <div class="container">
-        <div class="row g-0 gx-5 align-items-end">
-            <div class="col-lg-12">
-                <div
-                        class="section-header text-center mb-5 wow fadeInUp m-auto"
-                        data-wow-delay="0.1s"
-                        style="max-width: 500px"
-                >
-                    <h1 class="display-5 mb-3">الوصفات</h1>
-                </div>
-            </div>
-        </div>
-        <div class="tab-content">
-            <div class="row g-4">
-                <div class="product-item">
-                    <div class="position-relative bg-light overflow-hidden row" id="recipes">
-                                           Products Goes Here !-->
-                    <!-- </div>
-                </div>
-            </div>
-
-
-            <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-                <a
-                        class="btn btn-primary rounded-pill py-3 px-5"
-                        href="product.php"
-                >الانتقال الي صفحه الوصفات</a
-                >
-            </div>
-        </div>
-    </div>
-</div> --> 
-<!-- <div>
-</div> -->
-<!-- Product End -->
 
 <!-- Footer Start -->
 <div
@@ -271,38 +234,5 @@ $config = require_once __DIR__ . '/./backend/config.php';
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
 <!--<script src="js/view.js"></script>-->
-<script>
-    $.ajax({
-        url: "<?= $config['backend_url']?>/products.php?operation=show_all",
-        method: 'get',
-        headers: {
-            accept: "application/json"
-        },
-        dataType: 'json',
-        success: function (response) {
-            const recipes = document.querySelector("#recipes");
-
-            // fetch all product from backend
-            response.forEach((product) => {
-                const div = document.createElement("div");
-                // ✅ Add classes to element
-                div.classList.add("col-lg-4", "m-auto");
-                div.innerHTML = `
-                <img class="img-fluid w-100" src="<?= $config['backend_url']?>/uploads/${product.image}" alt="img-${product.image}" />
-                <div style="background-color: #3CB815;
-                border-color: #3CB815;
-                color: #fff;">
-                <p id="title" class="part-food text-center border-top">${product.name}</p>
-                <p id="title" class="part-food text-center border-top">${product.how_to_make}</p>
-            </div>
-            `;
-                recipes.appendChild(div);
-            });
-        },
-        error: function (error) {
-            console.log(error.responseText)
-        }
-    })
-</script>
 </body>
 </html>
