@@ -124,14 +124,21 @@ $config = require_once __DIR__ . '/./backend/config.php';
     <div class="container">
       <form action="">
           <div class="row">
-            <div class="col">
+            <div class="col m-auto">
               <input class="form-control" type="serach" id="formSerach">
             </div>
-            <div class="col">
-              <button>بحث</button>
+            <div class="col m-auto">
+              <button style="width: 100px !important;
+              background-color: #3CB815;
+              color: #ffff;
+              font-size: 20px;
+              font-weight: bold;
+              height: 50px;
+              border-radius: 50px;
+              border: none;">بحث</button>
+            </div>
           </div>
-          </form>
-      </div>
+      </form>
     </div>
     <!-- Product Start -->
     <div class="container-xxl py-5">
@@ -147,6 +154,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
             </div>
           </div>
         </div>
+        
         <div class="tab-content">
           <div class="row g-4">
               <div class="product-item">
@@ -220,7 +228,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
                 border-color: #3CB815;
                 color: #fff;">
                 <a href="product_details.php?id=${product.id}"
-                <p id="title" class="part-food text-center border-top">${product.name}</p>
+                <p id="title" class="part-food text-center" style="text-decoration: none; color: #fff; display: flow-root;">${product.name}</p>
                 </a>
             </div>
             `;
