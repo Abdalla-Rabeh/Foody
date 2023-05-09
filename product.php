@@ -121,7 +121,18 @@ $config = require_once __DIR__ . '/./backend/config.php';
       </div>
     </div>
     <!-- Page Header End -->
-
+    <div class="container">
+      <form action="">
+          <div class="row">
+            <div class="col">
+              <input class="form-control" type="serach" id="formSerach">
+            </div>
+            <div class="col">
+              <button>بحث</button>
+          </div>
+          </form>
+      </div>
+    </div>
     <!-- Product Start -->
     <div class="container-xxl py-5">
       <div class="container">
