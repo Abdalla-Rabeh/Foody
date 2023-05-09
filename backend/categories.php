@@ -6,6 +6,8 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 if($requestMethod == 'GET'){
     if($operation == 'show_all'){
         echo json_encode(show_all($pdoObject , 'select id , name from categories'));
+    } else if($operation == 'all_select'){
+        echo json_encode(show_all($pdoObject , 'select id , name from categories'));
     }
 } else if ($requestMethod == 'POST'){
     if($operation == 'store'){

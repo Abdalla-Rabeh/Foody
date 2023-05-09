@@ -14,7 +14,7 @@ try{
     die;
 }
 if(!function_exists('show_all')){
-    function show_all(PDO $pdoObject , string $query = 'SELECT * FROM products ORDER BY ID DESC' , array $bindings = []): bool|array
+    function show_all(PDO $pdoObject , string $query = 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id ORDER BY ID DESC' , array $bindings = []): bool|array
     {
         // start to get all products
         $statement = $pdoObject->prepare($query);
@@ -34,7 +34,7 @@ if(!function_exists('show_one')){
 }
 
 if(!function_exists('store')){
-    function store(PDO $pdoObject , string $query , array $bindings , string $showOneQuery = 'SELECT * from products ORDER BY id DESC LIMIT 1'){
+    function store(PDO $pdoObject , string $query , array $bindings , string $showOneQuery = 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id ORDER BY ID DESC LIMIT 1'){
 
         // Storing The Product
         $statement = $pdoObject->prepare($query);

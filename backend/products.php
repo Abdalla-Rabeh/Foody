@@ -12,7 +12,7 @@ if ($requestMethod == 'GET') {
         $productId = $_GET['id'] ?? null;
 
         if (is_numeric($productId)) {
-            $product = show_one($pdoObject, 'select * from products where id = ? ', [$productId]);
+            $product = show_one($pdoObject, 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id where products.id = ?', [$productId]);
 
             if ($product) {
                 echo json_encode($product);
@@ -87,8 +87,8 @@ if ($requestMethod == 'GET') {
                     http_response_code(201);
                     $storedProduct = store(
                         $pdoObject ,
-                        'INSERT INTO products (name , how_to_make , image) VALUES (?,?,?)',
-                        [$name , $howToMake , $imageName],
+                        'INSERT INTO products (name , how_to_make , image , category_id) VALUES (?,?,? , ?)',
+                        [$name , $howToMake , $imageName , $_POST['category']],
                     );
 
                     echo json_encode($storedProduct);
