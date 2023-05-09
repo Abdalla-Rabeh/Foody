@@ -33,6 +33,19 @@ $config = require_once __DIR__ . '/./backend/config.php';
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet"/>
+    <style>
+        .box {
+    background: #f1f1f1;
+    padding: 20px;
+    width: 80%;
+    margin: 20px auto;
+    box-shadow: 10px 20px 0px #3cb815;
+}
+        .box span , .box p {
+            color: #3cb815;
+        }
+        
+    </style>
 
 </head>
 
@@ -114,11 +127,25 @@ $config = require_once __DIR__ . '/./backend/config.php';
         <div class="row">
             <div class="col-lg-6">
                 <div class="img">
-                    <img src="img\about.jpg" alt="img" style="max-width: 80%; height: auto; padding: 20px;">
+                    <img src="img\product-1.jpg" alt="img" style="max-width: 80%; height: auto; padding: 20px;">
                 </div>
             </div>
-            <div class="col-lg-6">
-                
+            <div class="col-lg-6 m-auto">
+            <div class="box">
+                <h2>  
+                    اسم الوصفه  : 
+                    <span>
+                        
+                        برجر طازه  
+                        
+                    </span>
+                </h2>
+                <h3> اسم القسم : <span> لحوم</span></h3>
+                <h4> <span style="color:#000;"> مكونات الوصفه</span>   </h4>
+                <p style="font-size:20px; line-height:2; letter-spacing: 1.5px; font-family: system-ui;">
+                    دقيق - ملح - كمون فلفل - حاره - بتجان
+                </p>
+            </div>
             </div>
         </div>
     </div>
