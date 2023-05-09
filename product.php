@@ -92,7 +92,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
                   border-radius: 50px;
                 "
               >
-                <a href="login.html" style="color: #fff"> تسجيل الدخول </a>
+                <a href="login.php" style="color: #fff"> تسجيل الدخول </a>
               </button>
             </div>
           </div>

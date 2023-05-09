@@ -1,3 +1,11 @@
+<?php
+$config = require_once __DIR__ . '/./backend/config.php';
+require_once __DIR__.'/./backend/init.php';
+
+if(is_user_logged_in()){
+    redirect_home();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -50,7 +58,8 @@
                 <div class="form-outline mb-4">
                   <input
                     type="text"
-                    id="login-name"
+                    id="username"
+                    name="username"
                     class="form-control form-control-lg"
                     placeholder="اسم المستخدم"
                   />
@@ -59,7 +68,8 @@
                 <div class="form-outline mb-4">
                   <input
                     type="password"
-                    id="user-password"
+                    id="password"
+                    name="password"
                     class="form-control form-control-lg"
                     placeholder="كلمه المرور"
                   />
@@ -69,6 +79,7 @@
                   class="btn btn-primary btn-lg btn-block"
                   type="submit"
                   id="submit"
+                  onclick="loginUser(event)"
                 >
                   تسجيل
                 </button>
@@ -80,20 +91,18 @@
     </section>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-      let username = document.getElementById("login-name");
-      let userpassword = document.getElementById("user-password");
-      let submit = document.querySelector("#submit");
-      submit.addEventListener("click", function (e) {
-        e.preventDefault();
-        if (username.value == "admin" && userpassword.value == "123456") {
-          window.location.replace("admin.php");
-        } else if (username.value == "" || userpassword.value == "") {
-          alert("تاكد من ملي البيانات بشكل صحيح");
-        } else {
-          alert(" من فضلك تاكد من اسم المستخدم وكلمه المرور ");
+        function loginUser(){
+            let formData = new FormData();
+            formData.append('username' , document.querySelector('#username').value);
+            formData.append('password' , document.querySelector('#password').value);
+            axios.post("<?=$config['backend_url']?>/login.php" , formData).then(function(res){
+                window.location.replace('/foody/index.php')
+            }).catch(function(err){
+                console.log(err.data);
+            })
         }
-      });
     </script>
   </body>
 </html>
