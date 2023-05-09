@@ -1,7 +1,6 @@
 <?php
 
 $config = require_once __DIR__.'/./config.php';
-
 $pdo = null;
 try{
     $pdo = new PDO("mysql:host=" . $config['host'] .";dbname=" . $config['db_name'] , $config['username'] , $config['password']);
@@ -13,8 +12,8 @@ try{
     echo 'failed to connect to database , please make sure that database file is uploaded and credentials are correct';
     die;
 }
-if(!function_exists('show_all')){
-    function show_all(PDO $pdoObject , string $query = 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id ORDER BY ID DESC' , array $bindings = []): bool|array
+if(!function_exists('show_all_records')){
+    function show_all_records(PDO $pdoObject , string $query = 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id ORDER BY ID DESC' , array $bindings = []): bool|array
     {
         // start to get all products
         $statement = $pdoObject->prepare($query);
@@ -24,8 +23,8 @@ if(!function_exists('show_all')){
     }
 }
 
-if(!function_exists('show_one')){
-    function show_one(PDO $pdoObject , string $query , array $bindings = []){
+if(!function_exists('show_one_record')){
+    function show_one_record(PDO $pdoObject , string $query , array $bindings = []){
         $statement = $pdoObject->prepare($query);
         $statement->execute($bindings);
 
@@ -33,8 +32,8 @@ if(!function_exists('show_one')){
     }
 }
 
-if(!function_exists('store')){
-    function store(PDO $pdoObject , string $query , array $bindings , string $showOneQuery = 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id ORDER BY ID DESC LIMIT 1'){
+if(!function_exists('store_record')){
+    function store_record(PDO $pdoObject , string $query , array $bindings , string $showOneQuery = 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id ORDER BY ID DESC LIMIT 1'){
 
         // Storing The Product
         $statement = $pdoObject->prepare($query);
@@ -42,12 +41,12 @@ if(!function_exists('store')){
 
         // Returning the stored product
 
-        return show_one($pdoObject , $showOneQuery);
+        return show_one_record($pdoObject , $showOneQuery);
     }
 }
 
-if(!function_exists('delete_product')){
-    function delete_product(PDO $pdoObject , string $query , array $bindings = []): bool
+if(!function_exists('delete_record')){
+    function delete_record(PDO $pdoObject , string $query , array $bindings = []): bool
     {
         $statement = $pdoObject->prepare($query);
 

@@ -6,13 +6,13 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 if ($requestMethod == 'GET') {
     if ($operation == 'show_all') {
         // start to get all products
-        echo json_encode(show_all($pdoObject));
+        echo json_encode(show_all_records($pdoObject));
     } else if ($operation == 'show_one') {
         $errors = [];
         $productId = $_GET['id'] ?? null;
 
         if (is_numeric($productId)) {
-            $product = show_one($pdoObject, 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id where products.id = ?', [$productId]);
+            $product = show_one_record($pdoObject, 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id where products.id = ?', [$productId]);
 
             if ($product) {
                 echo json_encode($product);
@@ -85,7 +85,7 @@ if ($requestMethod == 'GET') {
                     // Start Storing The Product
 
                     http_response_code(201);
-                    $storedProduct = store(
+                    $storedProduct = store_record(
                         $pdoObject ,
                         'INSERT INTO products (name , how_to_make , image , category_id) VALUES (?,?,? , ?)',
                         [$name , $howToMake , $imageName , $_POST['category']],
@@ -109,12 +109,12 @@ else if ($requestMethod == 'DELETE'){
         $id = $_GET['id'] ?? null;
         $errors = [];
         if(is_numeric($id)){
-            $image = show_one($pdoObject , 'select image from products where id = ?' , [$id]);
+            $image = show_one_record($pdoObject , 'select image from products where id = ?' , [$id]);
             if($image){
                 $image=  $image['image'];
                 unlink(__DIR__."/./uploads/$image");
             }
-            if(delete_product($pdoObject , 'DELETE FROM products WHERE id =?' , [$id])){
+            if(delete_record($pdoObject , 'DELETE FROM products WHERE id =?' , [$id])){
 
                 http_response_code(200);
                 echo 'Product Deleted Successfully';
