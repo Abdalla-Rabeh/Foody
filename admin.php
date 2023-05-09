@@ -266,7 +266,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
 
                 newTr.innerHTML = `
 
-            <td><img src="<?=$config['backend_url']?>/uploads/${product.image}"></td>
+            <td><img style="width: 100px;" src="<?=$config['backend_url']?>/uploads/${product.image}"></td>
               <td>${product.name}</td>
               <td>${product.how_to_make}</td>
               <td>${product.category_name}</td>
