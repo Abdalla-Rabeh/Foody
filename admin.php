@@ -1,5 +1,11 @@
 <?php
 $config = require_once __DIR__ . '/./backend/config.php';
+require_once __DIR__ . '/./backend/init.php';
+
+start_session();
+if(!isset($_SESSION['userLogged']) || $_SESSION['role'] != 'admin'){
+    redirect_to();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

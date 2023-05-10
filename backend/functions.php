@@ -1,9 +1,9 @@
 <?php
 
-if(!function_exists('redirect_home')){
-    function redirect_home(): void
+if(!function_exists('redirect_to')){
+    function redirect_to(string $url = '/foody/index.php'): void
     {
-        header('Location:/foody/index.php');
+        header('Location:' . $url);
     }
 }
 

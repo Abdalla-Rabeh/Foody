@@ -5,8 +5,13 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 
 if ($requestMethod == 'GET') {
     if ($operation == 'show_all') {
+        $query = 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id ORDER BY ID DESC';
+        if(isset($_GET['handle']) && $_GET['handle']){
+            $handle = $_GET['handle'];
+            $query = "SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id where products.name like " . "'%$handle%'" . " or categories.name like " . "'%$handle%'";
+        }
         // start to get all products
-        echo json_encode(show_all_records($pdoObject));
+        echo json_encode(show_all_records($pdoObject , $query));
     } else if ($operation == 'show_one') {
         $errors = [];
         $productId = $_GET['id'] ?? null;

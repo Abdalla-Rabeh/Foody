@@ -15,7 +15,9 @@ if(session_id() == ''){
         session_start();
         unset($user['password']);
         $_SESSION['userLogged'] = true;
-        $_SESSION['userInfo'][] = $user;
+        foreach($user as $key => $value){
+            $_SESSION[$key] = $value;
+        }
         echo 'User Logged In Successfully';
     } else {
         http_response_code(422);

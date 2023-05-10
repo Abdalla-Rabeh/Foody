@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__.'/backend/init.php';
 $config = require_once __DIR__ . '/./backend/config.php';
 $id = $_GET['id'] ?? 0;
 ?>
@@ -86,6 +87,11 @@ $id = $_GET['id'] ?? 0;
                     <a href="product.php" class="nav-item nav-link active">الوصفات</a>
                     <a href="video.html" class="nav-item nav-link"
                     >الفيدوهات</a>
+                    <?php
+                    if(isset($_SESSION['userLogged']) && $_SESSION['role'] == 'admin'){
+                        echo "<button><a href='admin.php' style='color: #fff'>لوحه التحكم</a></button>";
+                    }
+                    ?>
                     <button
                             class="btn btn-primary"
                             style="
@@ -95,8 +101,15 @@ $id = $_GET['id'] ?? 0;
                   border-radius: 50px;
                 "
                     >
-                        <a href="login.php" style="color: #fff"> تسجيل الدخول </a>
+                        <?php
+                        if(!is_user_logged_in()){
+                            echo '<a href="backend/login.php" style="color: #fff"> تسجيل الدخول </a>';
+                        } else {
+                            echo "<a href='{$config['backend_url']}/logout.php' style='color: #fff'> تسجيل الخروج </a>";
+                        }
+                        ?>
                     </button>
+
                 </div>
             </div>
         </div>
