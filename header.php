@@ -99,7 +99,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
                     >
                         <?php
                             if(!is_user_logged_in()){
-                                echo '<a href="backend/login.php" style="color: #fff"> تسجيل الدخول </a>';
+                                echo '<a href="login.php" style="color: #fff"> تسجيل الدخول </a>';
                             } else {
                                 echo "<a href='{$config['backend_url']}/logout.php' style='color: #fff'> تسجيل الخروج </a>";
                             }
