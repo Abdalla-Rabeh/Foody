@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 09, 2023 at 06:52 PM
+-- Generation Time: May 11, 2023 at 09:30 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.5
 
@@ -52,16 +52,9 @@ CREATE TABLE `products` (
   `name` varchar(255) NOT NULL COMMENT 'product name',
   `category_id` int NOT NULL,
   `how_to_make` text NOT NULL COMMENT 'how to make that product',
-  `image` varchar(255) NOT NULL
+  `image` varchar(255) NOT NULL,
+  `video` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
---
--- Dumping data for table `products`
---
-
-INSERT INTO `products` (`id`, `name`, `category_id`, `how_to_make`, `image`) VALUES
-(56, 'Product 1', 1, 'How to make', '6021_2701.png'),
-(57, 'asdf', 1, 'asdf', '2203_4621.png');
 
 -- --------------------------------------------------------
 
@@ -82,7 +75,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `password`, `role`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin');
+(1, 'admin', 'admin', 'admin', 'admin'),
+(2, 'Mohamed', 'Mohamed', 'Mohamed', 'user');
 
 --
 -- Indexes for dumped tables
@@ -122,13 +116,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
