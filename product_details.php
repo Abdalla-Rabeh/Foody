@@ -166,9 +166,12 @@ $id = $_GET['id'] ?? 0;
                 <h3> اسم القسم : <span> ${productDetails.category_name}</span></h3>
                 <h4> <span style="color:#000;"> مكونات الوصفه</span>   </h4>
                 <p style="font-size:20px; line-height:2; letter-spacing: 1.5px; font-family: system-ui;">
-                    
+                    ${productDetails.how_to_make}
                 </p>
-                <iframe src="https://www.youtube.com/embed/${productDetails.how_to_make}"></iframe>
+            <video width="320" height="240" controls>
+                <source src="<?=$config['backend_url']?>/uploads/${productDetails.video}">
+            </video>
+
         `;
 
         let productImage = document.querySelector('#productImage');

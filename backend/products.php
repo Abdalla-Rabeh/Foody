@@ -5,19 +5,19 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 
 if ($requestMethod == 'GET') {
     if ($operation == 'show_all') {
-        $query = 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id ORDER BY ID DESC';
-        if(isset($_GET['handle']) && $_GET['handle']){
+        $query = 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , products.video as video,categories.name as category_name FROM products JOIN categories on categories.id = products.category_id ORDER BY ID DESC';
+        if (isset($_GET['handle']) && $_GET['handle']) {
             $handle = $_GET['handle'];
-            $query = "SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id where products.name like " . "'%$handle%'" . " or categories.name like " . "'%$handle%'";
+            $query = "SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , products.video as video, categories.name as category_name FROM products JOIN categories on categories.id = products.category_id where products.name like " . "'%$handle%'" . " or categories.name like " . "'%$handle%'";
         }
         // start to get all products
-        echo json_encode(show_all_records($pdoObject , $query));
+        echo json_encode(show_all_records($pdoObject, $query));
     } else if ($operation == 'show_one') {
         $errors = [];
         $productId = $_GET['id'] ?? null;
 
         if (is_numeric($productId)) {
-            $product = show_one_record($pdoObject, 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id where products.id = ?', [$productId]);
+            $product = show_one_record($pdoObject, 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , products.video as video ,categories.name as category_name FROM products JOIN categories on categories.id = products.category_id where products.id = ?', [$productId]);
 
             if ($product) {
                 echo json_encode($product);
@@ -39,13 +39,12 @@ if ($requestMethod == 'GET') {
         $name = htmlspecialchars($_POST['name'] ?? "");
         $howToMake = htmlspecialchars($_POST['how_to_make'] ?? "");
         $image = $_FILES['image'] ?? null;
-
+        $video = $_FILES['video'] ?? null;
         if (!$name) {
             $errors['name'] = 'name cannot be empty';
         } else if (!$howToMake) {
             $errors['how_to_make'] = 'recipe cannot be empty';
-        }
-        if (!$image || (isset($image['error']) && is_array($image['error']))) {
+        } else if (!$image || (isset($image['error']) && is_array($image['error']))) {
             $errors['image'] = 'image cannot be empty';
         } else {
             // Check if Image Uploaded Successfully
@@ -54,12 +53,13 @@ if ($requestMethod == 'GET') {
                 $errors['image'] = 'an error occurred while uploading the image';
             } else if ($image['size'] > 10000000) {
                 $errors['image'] = 'image is too big';
-            } else if (!$errors) {
+            }
 
+            if (!$errors) {
                 // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
                 // Check MIME Type by yourself.
                 $fileInfo = new finfo(FILEINFO_MIME_TYPE);
-                if (false === $ext = array_search(
+                if (false === $imageExt = array_search(
                         $fileInfo->file($image['tmp_name']),
                         array(
                             'jpg' => 'image/jpeg',
@@ -72,54 +72,86 @@ if ($requestMethod == 'GET') {
                 }
             }
 
-            if(!$errors && isset($ext)){
+            if (!$errors && isset($imageExt)) {
+
                 // Start Uploading the image
-                $imageName = rand(1,10000).'_' . rand(1,10000);
+                $imageName = rand(1, 10000) . '_' . rand(1, 10000);
                 if (!move_uploaded_file(
                     $image['tmp_name'],
                     sprintf('./uploads/%s.%s',
                         $imageName,
-                        $ext
+                        $imageExt
                     )
                 )) {
                     $errors['image'] = 'failed to upload the image';
                 }
+            }
 
-                if(!$errors){
-                    $imageName.=".$ext";
-                    // Start Storing The Product
 
-                    http_response_code(201);
-                    $storedProduct = store_record(
-                        $pdoObject ,
-                        'INSERT INTO products (name , how_to_make , image , category_id) VALUES (?,?,? , ?)',
-                        [$name , $howToMake , $imageName , $_POST['category']],
-                    );
-
-                    echo json_encode($storedProduct);
-
-                    die;
+            if (!$errors) {
+                // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
+                // Check MIME Type by yourself.
+                $fileInfo = new finfo(FILEINFO_MIME_TYPE);
+                if (false === $videoExt = array_search(
+                        $fileInfo->file($video['tmp_name']),
+                        array(
+                            'mp4' => 'video/mp4',
+                            'mkv' => 'video/mkv'
+                        ),
+                        true
+                    )) {
+                    $errors['video'] = 'file extension is not allowed';
                 }
             }
 
+            if (!$errors && isset($videoExt)) {
+
+                // Start Uploading the image
+                $videoName = rand(1, 10000) . '_' . rand(1, 10000);
+
+
+                if (!move_uploaded_file(
+                    $video['tmp_name'],
+                    sprintf('./uploads/%s.%s',
+                        $videoName,
+                        $videoExt
+                    )
+                )) {
+                    $errors['video'] = 'failed to upload the image';
+                }
+            }
+            if (!$errors) {
+                $imageName .= ".$imageExt";
+                $videoName .= ".$videoExt";
+                // Start Storing The Product
+
+                http_response_code(201);
+                $storedProduct = store_record(
+                    $pdoObject,
+                    'INSERT INTO products (name , how_to_make , image ,video, category_id) VALUES (?,?,? ,?, ?)',
+                    [$name, $howToMake, $imageName, $videoName, $_POST['category']],
+                );
+
+                echo json_encode($storedProduct);
+
+                die;
+            }
+            http_response_code(422);
+            echo json_encode($errors);
+
         }
-
-        http_response_code(422);
-        echo json_encode($errors);
-
     }
-}
-else if ($requestMethod == 'DELETE'){
-    if($operation == 'delete'){
+}else if ($requestMethod == 'DELETE') {
+    if ($operation == 'delete') {
         $id = $_GET['id'] ?? null;
         $errors = [];
-        if(is_numeric($id)){
-            $image = show_one_record($pdoObject , 'select image from products where id = ?' , [$id]);
-            if($image){
-                $image=  $image['image'];
-                unlink(__DIR__."/./uploads/$image");
+        if (is_numeric($id)) {
+            $image = show_one_record($pdoObject, 'select image from products where id = ?', [$id]);
+            if ($image) {
+                $image = $image['image'];
+                unlink(__DIR__ . "/./uploads/$image");
             }
-            if(delete_record($pdoObject , 'DELETE FROM products WHERE id =?' , [$id])){
+            if (delete_record($pdoObject, 'DELETE FROM products WHERE id =?', [$id])) {
 
                 http_response_code(200);
                 echo 'Product Deleted Successfully';
@@ -129,6 +161,7 @@ else if ($requestMethod == 'DELETE'){
         } else {
             $errors['id'] = 'id is not valid';
         }
+
 
         http_response_code(422);
         echo json_encode($errors);

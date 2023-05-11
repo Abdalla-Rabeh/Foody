@@ -33,7 +33,7 @@ if(!function_exists('show_one_record')){
 }
 
 if(!function_exists('store_record')){
-    function store_record(PDO $pdoObject , string $query , array $bindings , string $showOneQuery = 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image , categories.name as category_name FROM products JOIN categories on categories.id = products.category_id ORDER BY ID DESC LIMIT 1'){
+    function store_record(PDO $pdoObject , string $query , array $bindings , string $showOneQuery = 'SELECT products.id as id , products.name as name , products.how_to_make , products.image as image ,products.video as video, categories.name as category_name FROM products JOIN categories on categories.id = products.category_id ORDER BY ID DESC LIMIT 1'){
 
         // Storing The Product
         $statement = $pdoObject->prepare($query);

@@ -167,6 +167,10 @@ if(!isset($_SESSION['userLogged']) || $_SESSION['role'] != 'admin'){
             <input type="file" id="image_input" class="d-none" name="image" accept="image/png, image/jpg">
         </div>
         <div class="col">
+            <label for="video_input" style="border: 2px dotted #3cb815;">فيديو الوصفه</label>
+            <input type="file" id="video_input" class="d-none" name="video" accept="video/mp4, video/mkv">
+        </div>
+        <div class="col">
             <input type="text" name="name" id="url" placeholder="اسم الوصفه"/>
         </div>
         <div class="col">
@@ -187,6 +191,9 @@ if(!isset($_SESSION['userLogged']) || $_SESSION['role'] != 'admin'){
         <tr>
             <th>الصوره
                 <div id="display_image"></div>
+            </th>
+            <th>الفيديو
+                <div id="displayed_video"></div>
             </th>
             <th>اسم الوصفة</th>
             <th>تفاصيل</th>
@@ -225,6 +232,11 @@ if(!isset($_SESSION['userLogged']) || $_SESSION['role'] != 'admin'){
                 newTr.innerHTML = `
 
             <td><img src="<?=$config['backend_url']?>/uploads/${data.image}"></td>
+            <td>
+                <video width="320" height="240" controls>
+                  <source src="<?=$config['backend_url']?>/uploads/${data.video}">
+                </video>
+            </td>
               <td>${data.name}</td>
               <td>${data.how_to_make}</td>
               <td>${data.category_name}</td>
@@ -272,7 +284,15 @@ if(!isset($_SESSION['userLogged']) || $_SESSION['role'] != 'admin'){
 
                 newTr.innerHTML = `
 
-            <td><img style="width: 100px;" src="<?=$config['backend_url']?>/uploads/${product.image}"></td>
+            <td>
+            <img style="width: 100px;" src="<?=$config['backend_url']?>/uploads/${product.image}">
+            </td>
+
+            <td>
+                <video width="320" height="240" controls>
+                  <source src="<?=$config['backend_url']?>/uploads/${product.video}">
+                </video>
+            </td>
               <td>${product.name}</td>
               <td>${product.how_to_make}</td>
               <td>${product.category_name}</td>
