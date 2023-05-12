@@ -92,7 +92,7 @@ $config = require_once __DIR__ . '/./backend/config.php';
                     >الصفحه الرئيسه</a
                     >
                     <a href="product.php" class="nav-item nav-link">الوصفات</a>
-                    <a href="video.html" class="nav-item nav-link active"
+                    <a href="video.php" class="nav-item nav-link active"
                     >الفيدوهات</a>
                     <?php
                     if(isset($_SESSION['userLogged']) && $_SESSION['role'] == 'admin'){

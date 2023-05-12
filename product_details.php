@@ -95,7 +95,7 @@ $id = $_GET['id'] ?? 0;
                     >الصفحه الرئيسه</a
                     >
                     <a href="product.php" class="nav-item nav-link active">الوصفات</a>
-                    <a href="video.html" class="nav-item nav-link"
+                    <a href="video.php" class="nav-item nav-link"
                     >الفيدوهات</a>
                     <?php
                     if(isset($_SESSION['userLogged']) && $_SESSION['role'] == 'admin'){
