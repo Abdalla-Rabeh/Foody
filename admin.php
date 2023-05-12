@@ -236,7 +236,7 @@ if(!isset($_SESSION['userLogged']) || $_SESSION['role'] != 'admin'){
 
             <td><img src="<?=$config['backend_url']?>/uploads/${data.image}"></td>
             <td>
-                <video width="320" height="240" controls>
+                <video width="300" height="200" controls>
                   <source src="<?=$config['backend_url']?>/uploads/${data.video}">
                 </video>
             </td>

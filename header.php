@@ -52,6 +52,9 @@ $config = require_once __DIR__ . '/./backend/config.php';
     border: none;
     color: #fff;
         }
+        video{
+            width: 100%;
+        }
     </style>
 </head>
 
