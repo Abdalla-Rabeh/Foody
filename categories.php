@@ -134,6 +134,9 @@ $config = require_once __DIR__ . '/./backend/config.php';
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav me-auto">
+            <a href="index.php" class="nav-item nav-link"
+                    >الصفحه الرئيسه</a
+            >
               <a href="admin.php" class="nav-item nav-link">الوصفات</a>
               <a href="categories.php" class="nav-item nav-link active"
                 >الاقسام</a

@@ -148,6 +148,9 @@ if(!isset($_SESSION['userLogged']) || $_SESSION['role'] != 'admin'){
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav me-auto">
+            <a href="index.php" class="nav-item nav-link"
+                    >الصفحه الرئيسه</a
+            >
               <a href="admin.php" class="nav-item nav-link active">الوصفات</a>
               <a href="categories.php" class="nav-item nav-link"
                 >الاقسام</a
