@@ -27,18 +27,9 @@ require_once __DIR__.'/header.php';
       <form action="">
           <div class="row">
             <div class="col m-auto">
-              <input class="form-control" type="serach" id="productSearch">
+              <input class="form-control" type="serach" id="productSearch" placeholder="بحث">
             </div>
-            <div class="col m-auto">
-              <button style="width: 100px !important;
-              background-color: #3CB815;
-              color: #ffff;
-              font-size: 20px;
-              font-weight: bold;
-              height: 50px;
-              border-radius: 50px;
-              border: none;">بحث</button>
-            </div>
+            
           </div>
       </form>
     </div>

@@ -42,6 +42,17 @@ $config = require_once __DIR__ . '/./backend/config.php';
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet"/>
+    <style>
+        button{
+            width: 130px !important;
+    margin: 10px auto;
+    height: 50px;
+    border-radius: 50px;
+    background-color: #3CB815;
+    border: none;
+    color: #fff;
+        }
+    </style>
 </head>
 
 <body style="direction: rtl">

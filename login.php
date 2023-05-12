@@ -83,6 +83,7 @@ if(is_user_logged_in()){
                 >
                   تسجيل
                 </button>
+                <a href="register.php">انشاء حساب جديد</a>
               </div>
             </div>
           </div>
